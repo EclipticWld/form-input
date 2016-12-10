@@ -11,7 +11,7 @@ import asyncValidate from './asyncValidate'
 
 const validate = values => {
   const errors = {}
-  const requiredFields = [ 'firstName', 'lastName', 'email', 'favoriteColor', 'notes' ]
+  const requiredFields = [ 'firstName', 'lastName', 'email', 'favoriteColor', 'notes', 'datePicker', 'timePicker' ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -54,16 +54,20 @@ const renderSelectField = ({ input, label, meta: { touched, error }, children, .
     {...custom}/>
 )
 
-const renderDatePicker = ({ input, ...rest }) => (
+const renderDatePicker = ({ input, meta: { touched, error }, ...rest }) => (
   <DatePicker {...input} {...rest}
     value={input.value}
-    onChange={(event, value) => input.onChange(value)}/>
+    onChange={(event, value) => input.onChange(value)}
+    errorText={touched && error}
+  />
 )
 
-const renderTimePicker = ({ input, ...rest }) => (
+const renderTimePicker = ({ input, meta: { touched, error }, ...rest }) => (
   <TimePicker {...rest}
     value={input.value}
-    onChange={(event, value) => input.onChange(value)}/>
+    onChange={(event, value) => input.onChange(value)}
+    errorText={touched && error}
+  />
 )
 
 const MaterialUiForm = props => {
