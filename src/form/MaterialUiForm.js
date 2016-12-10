@@ -56,7 +56,7 @@ const renderSelectField = ({ input, label, meta: { touched, error }, children, .
 
 const renderDatePicker = ({ input, meta: { touched, error }, ...rest }) => (
   <DatePicker {...input} {...rest}
-    value={input.value}
+    value={(input.value && new Date(input.value)) || null}
     onChange={(event, value) => input.onChange(value)}
     errorText={touched && error}
   />
@@ -64,7 +64,7 @@ const renderDatePicker = ({ input, meta: { touched, error }, ...rest }) => (
 
 const renderTimePicker = ({ input, meta: { touched, error }, ...rest }) => (
   <TimePicker {...rest}
-    value={input.value}
+    value={(input.value && new Date(input.value)) || null}
     onChange={(event, value) => input.onChange(value)}
     errorText={touched && error}
   />
