@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
+import 'whatwg-fetch';
 import logo from './logo.svg';
 import './App.css';
 import MaterialUiForm from './form/MaterialUiForm';
 
 class AppContainer extends Component {
-  submitContact = (data) => {
+  handleSubmit = (data) => {
     window.alert(JSON.stringify(data));
+    fetch('url', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
   }
 
   render() {
+    console.log('fetch', fetch)
     return (
       <div className="App">
         <div className="App-header">
@@ -19,12 +25,11 @@ class AppContainer extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <div style={{padding: '0 0 0 90px'}}>
-          <MaterialUiForm onSubmit={this.submitContact} />
+          <MaterialUiForm onSubmit={this.handleSubmit} />
         </div>
       </div>
     );
   }
-
 }
 
 export default AppContainer;

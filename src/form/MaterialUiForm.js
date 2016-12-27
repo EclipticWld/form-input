@@ -54,16 +54,32 @@ const renderSelectField = ({ input, label, meta: { touched, error }, children, .
     {...custom}/>
 )
 
-const renderDatePicker = ({ input, meta: { touched, error }, ...rest }) => (
-  <DatePicker {...input} {...rest}
-    value={(input.value && new Date(input.value)) || null}
-    onChange={(event, value) => input.onChange(value)}
-    errorText={touched && error}
-  />
-)
+// const renderDatePicker = ({ input, meta: { touched, error }, ...rest }) => (
+//   <DatePicker {...input} {...rest}
+//     hintText={input.name}
+//     value={(input.value && new Date(input.value)) || null}
+//     onChange={(event, value) => input.onChange(value)}
+//     errorText={touched && error}
+//   />
+// )
 
-const renderTimePicker = ({ input, meta: { touched, error }, ...rest }) => (
+const renderDatePicker = (props) => {
+  const { input, label, meta: { touched, error }, ...rest } = props;
+  return (
+    <DatePicker {...input} {...rest}
+      hintText={label}
+      value={(input.value && new Date(input.value)) || null}
+      onChange={(event, value) => input.onChange(value)}
+      errorText={touched && error}
+      container="inline"
+    />
+  )
+}
+
+
+const renderTimePicker = ({ input, label, meta: { touched, error }, ...rest }) => (
   <TimePicker {...rest}
+    hintText={label}
     value={(input.value && new Date(input.value)) || null}
     onChange={(event, value) => input.onChange(value)}
     errorText={touched && error}
@@ -103,8 +119,8 @@ const MaterialUiForm = props => {
         <Field name="notes" component={renderTextField} label="Notes" multiLine={true} rows={2}/>
       </div>
       <div>
-        <Field name="datePicker" component={renderDatePicker} />
-        <Field name="timePicker" component={renderTimePicker} />
+        <Field name="datePicker" label="Pick a date" component={renderDatePicker} />
+        <Field name="timePicker" label="Pick a time" component={renderTimePicker} />
       </div>
       <div>
         <button type="submit" disabled={pristine || submitting}>Submit</button>
